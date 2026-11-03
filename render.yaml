@@ -1,0 +1,82 @@
+services:
+  # Backend API
+  - type: web
+    name: chemist-crm-backend
+    env: python
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chemist-crm-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: chemist-crm-redis
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: BACKEND_CORS_ORIGINS
+        value: https://chemist-crm-frontend.onrender.com
+    autoDeploy: true
+
+  # Celery worker
+  - type: worker
+    name: chemist-crm-worker
+    env: python
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "celery -A app.core.celery_app worker --loglevel=info"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chemist-crm-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: chemist-crm-redis
+          property: connectionString
+
+  # Celery beat (scheduler)
+  - type: worker
+    name: chemist-crm-beat
+    env: python
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "celery -A app.core.celery_app beat --loglevel=info"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chemist-crm-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: chemist-crm-redis
+          property: connectionString
+
+  # Frontend
+  - type: web
+    name: chemist-crm-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: "npm ci && npm run build"
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://chemist-crm-backend.onrender.com/api/v1
+    autoDeploy: true
+
+databases:
+  - name: chemist-crm-db
+    plan: starter
+    ipAllowList: []
+
+  - name: chemist-crm-redis
+    plan: starter
+    ipAllowList: []
