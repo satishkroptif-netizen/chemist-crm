@@ -11,7 +11,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "https://chemist-crm-backend.onrender.com/api/$1"
+      "dest": "https://answer-possession-wise-promise.trycloudflare.com/api/$1"
     },
     {
       "src": "/(.*)",
