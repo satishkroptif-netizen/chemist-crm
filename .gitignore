@@ -1,0 +1,70 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Test coverage
+htmlcov/
+.coverage
+.pytest_cache/
+.tox/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+
+# Docker
+.docker/
+
+# Node modules (for frontend)
+node_modules/
+
+# Vite
+dist/
+*.local
+
+# Alembic
+alembic/versions/*.pyc
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Uploads
+uploads/
+media/
+
+# Backup
+*.bak
+*.backup
