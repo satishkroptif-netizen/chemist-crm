@@ -29,7 +29,7 @@ function PrivateRoute({ children, allowedRoles }: { children: React.ReactNode; a
 }
 
 function AppRoutes() {
-  const { user, isLoading } = useAuth();
+  const { isLoading } = useAuth();
   
   if (isLoading) {
     return (

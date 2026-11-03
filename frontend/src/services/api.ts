@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { Token, ApiError } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
+const API_BASE_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 
 class ApiService {
   private client: AxiosInstance;
@@ -60,11 +60,11 @@ class ApiService {
             originalRequest.headers.Authorization = `Bearer ${newToken}`;
             return this.client(originalRequest);
           } catch (refreshError) {
-            this.failedQueue.forEach(({ reject }) => reject(refreshError));
+            this.failedQueue.forEach(({ reject }) => reject(refreshError as Error));
             this.failedQueue = [];
             this.clearTokens();
             window.location.href = '/login';
-            return Promise.reject(refreshError);
+            return Promise.reject(refreshError as Error);
           } finally {
             this.isRefreshing = false;
           }

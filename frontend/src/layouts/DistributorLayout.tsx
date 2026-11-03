@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Menu, X, LogOut, User, ChevronDown, Building2, LayoutDashboard, Users, Package, FileText, CreditCard, RotateCcw, BookOpen, Warehouse, Tag, BarChart3, Settings } from 'lucide-react';
+import { Menu, X, LogOut, User, ChevronDown, Building2, LayoutDashboard, Users, Package, FileText, CreditCard, RotateCcw, BookOpen, Warehouse, Tag, BarChart3 } from 'lucide-react';
 import { cn, getInitials } from '../utils/helpers';
 import { toast } from 'react-hot-toast';
 
