@@ -14,9 +14,9 @@ if (-not (Test-Path "venv")) {
 Write-Host "Activating virtual environment..." -ForegroundColor Yellow
 .\venv\Scripts\Activate.ps1
 
-# 3. Install dependencies
+# 3. Install dependencies (prebuilt wheels only — no C++ compilation needed)
 Write-Host "Installing Python packages..." -ForegroundColor Yellow
-pip install -r requirements.txt
+pip install --only-binary=:all: -r requirements.txt
 
 # 4. Initialize database
 Write-Host "Initializing database..." -ForegroundColor Yellow
