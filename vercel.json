@@ -11,7 +11,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "https://discussion-makeup-ace-justify.trycloudflare.com/api/$1"
+      "dest": "https://canberra-emission-then-stomach.trycloudflare.com/api/$1"
     },
     {
       "src": "/(.*)",
