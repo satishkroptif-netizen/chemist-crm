@@ -130,7 +130,7 @@ class Distributor(BaseModel):
     invoices = relationship("Invoice", back_populates="distributor")
     
     __table_args__ = (
-        CheckConstraint("char_length(gstin) = 15", name="valid_gstin_length"),
+        CheckConstraint("length(gstin) = 15", name="valid_gstin_length"),
         Index("ix_distributors_gstin_active", "gstin", "is_active"),
     )
 
@@ -175,7 +175,7 @@ class Retailer(BaseModel):
     ledger_entries = relationship("LedgerEntry", back_populates="retailer")
     
     __table_args__ = (
-        CheckConstraint("char_length(gstin) = 15", name="valid_retailer_gstin_length"),
+        CheckConstraint("length(gstin) = 15", name="valid_retailer_gstin_length"),
         Index("ix_retailers_gstin_verified", "gstin", "is_verified"),
     )
 
@@ -344,7 +344,7 @@ class Product(BaseModel):
     
     __table_args__ = (
         UniqueConstraint("distributor_id", "sku", name="uq_product_distributor_sku"),
-        CheckConstraint("char_length(hsn_code) BETWEEN 4 AND 8", name="valid_hsn_length"),
+        CheckConstraint("length(hsn_code) BETWEEN 4 AND 8", name="valid_hsn_length"),
         CheckConstraint("mrp >= 0", name="positive_mrp"),
         CheckConstraint("trade_price >= 0", name="positive_trade_price"),
         CheckConstraint("gst_rate >= 0 AND gst_rate <= 28", name="valid_gst_rate"),
